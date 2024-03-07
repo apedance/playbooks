@@ -1,11 +1,11 @@
 ---
 - name: Copy Docker service file
   hosts: all
-  become: true
+  become: yes
 
   tasks:
     - name: Copy docker.service file
-      copy:
+      template:
         src: /home/deb1i/template/docker.service
         dest: /lib/systemd/system/docker.service
       notify:
