@@ -1,0 +1,7 @@
+- name: Reboot Linux Machines
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Reboot the machines
+      command: systemctl reboot now
