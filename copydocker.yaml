@@ -5,9 +5,10 @@
 
   tasks:
     - name: Copy docker.service file
-      template:
+      copy:
         src: /home/deb1i/template/docker.service
         dest: /lib/systemd/system/docker.service
+        remote_src: yes
       notify:
         - Restart Docker Service
 
