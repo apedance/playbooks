@@ -1,0 +1,18 @@
+---
+- name: Copy Docker service file
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Copy docker.service file
+      copy:
+        src: /home/deb1i/template/docker.service
+        dest: /lib/systemd/system/docker.service
+      notify:
+        - Restart Docker Service
+
+  handlers:
+    - name: Restart Docker Service
+      systemd:
+        name: docker
+        state: restarted
