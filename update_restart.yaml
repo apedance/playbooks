@@ -1,0 +1,22 @@
+---
+- hosts: all
+  become: true
+  become_method: sudo
+
+  tasks:
+    - name: Update apt packages
+      ansible.builtin.apt:
+        upgrade: yes
+        update_cache: yes
+        force_apt_get: yes
+
+    # Combined cleanup task (Autoclean + Autoremove + Clean)
+    - name: Clean apt cache and autoremove dependencies
+      ansible.builtin.apt:
+        autoclean: yes
+        autoremove: yes
+        clean: yes
+        
+    - name: autoremove apt packages
+      apt:
+        autoremove: yes
