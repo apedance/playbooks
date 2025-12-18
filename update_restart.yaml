@@ -8,7 +8,6 @@
       ansible.builtin.apt:
         upgrade: yes
         update_cache: yes
-        force_apt_get: yes
 
     # Combined cleanup task (Autoclean + Autoremove + Clean)
     - name: Clean apt cache and autoremove dependencies
@@ -20,3 +19,6 @@
     - name: autoremove apt packages
       apt:
         autoremove: yes
+
+    - name: Reboot the machines
+      command: systemctl reboot now
