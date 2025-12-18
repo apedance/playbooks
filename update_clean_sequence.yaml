@@ -23,6 +23,10 @@
         autoclean: yes
         autoremove: yes
         clean: yes
+        
+    - name: autoremove apt packages
+      apt:
+        autoremove: yes
 
     # The reload runs last, ensuring the service file and system are clean
     - name: Reload systemd and restart docker
