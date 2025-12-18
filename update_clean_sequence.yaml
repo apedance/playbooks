@@ -8,6 +8,7 @@
       ansible.builtin.apt:
         upgrade: yes
         update_cache: yes
+        force_apt_get: yes
 
     - name: Copy Docker service file
       ansible.builtin.copy:
