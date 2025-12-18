@@ -29,3 +29,5 @@
         autoremove: yes
 
     # The reload runs last, ensuring the service file and system are clean
+    - name: Reboot the machines
+      command: systemctl reboot now
