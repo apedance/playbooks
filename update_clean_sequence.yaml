@@ -1,0 +1,31 @@
+---
+- hosts: all
+  become: true
+  become_method: sudo
+
+  tasks:
+    - name: Update apt packages
+      ansible.builtin.apt:
+        upgrade: yes
+        update_cache: yes
+
+    - name: Copy Docker service file
+      ansible.builtin.copy:
+        src: /home/deb1i/template/docker.service
+        dest: /lib/systemd/system/docker.service
+        remote_src: yes
+      register: docker_service_file
+
+    # Combined cleanup task (Autoclean + Autoremove + Clean)
+    - name: Clean apt cache and autoremove dependencies
+      ansible.builtin.apt:
+        autoclean: yes
+        autoremove: yes
+        clean: yes
+
+    # The reload runs last, ensuring the service file and system are clean
+    - name: Reload systemd and restart docker
+      ansible.builtin.systemd:
+        name: docker
+        state: restarted
+        daemon_reload: yes
